@@ -1,34 +1,81 @@
 <template>
-  <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/brazil">Brazil</router-link>
-      <router-link to="/panama">Panama</router-link>
-      <router-link to="/hawaii">Hawaii</router-link>
-      <router-link to="/jamaica">Jamaica</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+    <TheNavigation />
+    <transition name="fade" mode="out-in">
+      <router-view :key="$route.path" />
+    </transition>
+  </div>
 </template>
+<script>
+import TheNavigation from "@/components/TheNavigation";
 
+export default {
+  components: {
+    TheNavigation
+  }
+};
+</script>
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 1s, transform 1s;
+}
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(-30%);
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.moveUp-enter-active {
+  animation: fadeIn 1s ease-in;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.moveUp-leave-active {
+  animation: moveUp 0.3s ease-in;
+}
+@keyframes moveUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-400px);
+  }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.input {
+  border: 1px solid green;
   padding: 10px;
+  margin-bottom: 20px;
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.btn {
+  background-color: green;
+  color: white;
+  padding: 10px;
 }
 </style>
