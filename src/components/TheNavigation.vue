@@ -1,24 +1,29 @@
 <template>
-    <div id="nav">
-      <router-link id="logo" to="/">sa</router-link>
-      <router-link 
+  <div id="nav">
+    <AppLink id="logo" to="/">sa</AppLink>
+    <AppLink 
       v-for="destination in destinations"
       :key="destination.id"
-      :to="{name : 'destination.show', params:{id: destination.id, slug:destination.slug}}"
-      >
+      :to="{ name: 'destination.show', params: { id: destination.id, slug: destination.slug } }"
+    >
       <h2>{{ destination.name }}</h2>
-    </router-link>
+    </AppLink>
+    <AppLink :to="{ name: 'protected' }">Dashboard</AppLink>
   </div>
-  </template>
+</template>
+
 <script>
-import sourceData from '../data.json'
+import sourceData from '../data.json';
+import AppLink from './AppLink.vue';
+
 export default {
-data(){
-  return{
-    destinations: sourceData.destinations
+  components: {
+    AppLink
+  },
+  data() {
+    return {
+      destinations: sourceData.destinations
+    };
   }
-}
-
-
-}
+};
 </script>
